@@ -18,7 +18,7 @@ function login(){
     // 1. Check default admin credentials
     if (credential === 'admin' && p === 'admin123') {
         localStorage.setItem('isLoggedIn', 'true');
-        location.href = 'dashboard.html';
+        location.href = 'dashboard/index.html';
         return;
     }
 
@@ -28,7 +28,7 @@ function login(){
 
     if (matchedUser) {
         localStorage.setItem('isLoggedIn', 'true');
-        location.href = 'dashboard.html';
+        location.href = 'dashboard/index.html';
     } else {
         showMsg('Invalid credentials');
     }

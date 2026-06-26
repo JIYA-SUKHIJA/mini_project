@@ -502,7 +502,7 @@ function escapeHTML(str) {
 // 8. GLOBAL UTILITY FUNCTIONS
 function logout() {
     localStorage.clear();
-    location.href = 'index.html';
+    location.href = 'index.html'; // This redirects to index.html
 }
 
 // Add this click listener to bind the HTML button to your logout function
