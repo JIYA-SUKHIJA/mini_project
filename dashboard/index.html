@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/dashboard/style.css">
+</head>
+<body>
+
+    <div class="global-loader-screen" id="globalLoader">
+        <div class="spinner-loader"></div>
+        <p class="loading-text">Loading Workspace...</p>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="mobile-top-bar">
+            <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Open Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="mobile-logo">
+                <i class="fa-solid fa-square-check"></i> <span>TaskFlow</span>
+            </div>
+        </div>
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-square-check"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h2>TaskFlow</h2>
+                        <p>To-Do Dashboard</p>
+                    </div>
+                </div>
+                <button class="toggle-sidebar-btn" id="toggleSidebar" aria-label="Toggle Sidebar">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-menu">
+                <p class="menu-label">MENU</p>
+                <ul class="menu-items-list">
+                    <div class="sliding-indicator" id="slidingIndicator"></div>
+                    
+                    <li class="menu-item active" data-index="0" data-status="all">
+                        <a href="#"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></a>
+                    </li>
+                    <li class="menu-item" data-index="1" data-status="all">
+                        <a href="#"><i class="fa-solid fa-list-check"></i> <span>My Tasks</span></a>
+                    </li>
+                    <li class="menu-item" data-index="2" data-status="Completed">
+                        <a href="#"><i class="fa-solid fa-circle-check"></i> <span>Completed Tasks</span></a>
+                    </li>
+                    <li class="menu-item" data-index="3" data-status="Pending">
+                        <a href="#"><i class="fa-solid fa-clock"></i> <span>Pending Tasks</span></a>
+                    </li>
+                    <li class="menu-item" data-index="4">
+                        <a href="#"><i class="fa-solid fa-calendar-days"></i> <span>Calendar</span></a>
+                    </li>
+                    <li class="menu-item" data-index="5">
+                        <a href="#"><i class="fa-solid fa-gear"></i> <span>Settings</span></a>
+                    </li>
+                </ul>
+
+                <p class="menu-label labels-section">LABELS</p>
+                <ul class="labels-list">
+                    <li class="label-filter-btn" data-priority="High"><span class="dot high"></span> <span>High Priority</span></li>
+                    <li class="label-filter-btn" data-priority="Medium"><span class="dot medium"></span> <span>Medium Priority</span></li>
+                    <li class="label-filter-btn" data-priority="Low"><span class="dot low"></span> <span>Low Priority</span></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-banner">
+                <div class="banner-content">
+                    <h4>Finished Working? <i class="fa-solid fa-right-from-bracket"></i></h4>
+                    <p>Save your changes and sign out safely.</p>
+                    <button class="upgrade-btn" id="sidebarLogoutBtn" style="background-color: #ef4444;">Logout</button>
+                </div>
+            </div>
+
+            <div class="sidebar-footer" id="footerCollapseBtn">
+                <i class="fa-solid fa-arrow-left-long"></i> <span>Collapse</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="welcome-section-wrapper">
+                    <div class="welcome-msg">
+                        <h1>Welcome back, Jiya! 👋</h1>
+                        <p>Here's what's happening with your tasks today.</p>
+                    </div>
+                    <div class="header-theme-switch-box">
+                        <i class="fa-solid fa-sun icon-sun"></i>
+                        <label class="theme-switch-label">
+                            <input type="checkbox" id="headerThemeToggle">
+                            <span class="theme-switch-slider"></span>
+                        </label>
+                        <i class="fa-solid fa-moon icon-moon"></i>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search tasks by title..." id="taskSearch">
+                    </div>
+                    <div class="notification-trigger">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge" id="notificationBadge">3</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="User Profile">
+                        <div class="user-info">
+                            <span class="user-name">Jiya Sukhija</span>
+                            <span class="user-role">Productive User</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="stats-grid">
+                <div class="stat-card total-tasks">
+                    <div class="stat-header">
+                        <div class="stat-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                        <div class="stat-trend trend-up"><i class="fa-solid fa-arrow-up"></i> 12% <span class="trend-text">from last week</span></div>
+                    </div>
+                    <div class="stat-body">
+                        <span class="stat-value" id="stat-total">0</span>
+                        <span class="stat-title">Total Tasks</span>
+                    </div>
+                    <div class="progress-bar-container"><div class="progress-fill" id="pb-total" style="width: 0%"></div></div>
+                </div>
+
+                <div class="stat-card completed-tasks">
+                    <div class="stat-header">
+                        <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="stat-trend trend-up"><i class="fa-solid fa-arrow-up"></i> 8% <span class="trend-text">from last week</span></div>
+                    </div>
+                    <div class="stat-body">
+                        <span class="stat-value" id="stat-completed">0</span>
+                        <span class="stat-title">Completed Tasks</span>
+                    </div>
+                    <div class="progress-bar-container"><div class="progress-fill" id="pb-completed" style="width: 0%"></div></div>
+                </div>
+
+                <div class="stat-card pending-tasks">
+                    <div class="stat-header">
+                        <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div class="stat-trend trend-down"><i class="fa-solid fa-arrow-down"></i> 5% <span class="trend-text">from last week</span></div>
+                    </div>
+                    <div class="stat-body">
+                        <span class="stat-value" id="stat-pending">0</span>
+                        <span class="stat-title">Pending Tasks</span>
+                    </div>
+                    <div class="progress-bar-container"><div class="progress-fill" id="pb-pending" style="width: 0%"></div></div>
+                </div>
+
+                <div class="stat-card progress-tasks">
+                    <div class="stat-header">
+                        <div class="stat-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+                        <div class="stat-trend trend-up"><i class="fa-solid fa-arrow-up"></i> 3% <span class="trend-text">from last week</span></div>
+                    </div>
+                    <div class="stat-body">
+                        <span class="stat-value" id="stat-progress">0</span>
+                        <span class="stat-title">In Progress Tasks</span>
+                    </div>
+                    <div class="progress-bar-container"><div class="progress-fill" id="pb-progress" style="width: 0%"></div></div>
+                </div>
+
+                <div class="stat-card high-priority">
+                    <div class="stat-header">
+                        <div class="stat-icon"><i class="fa-solid fa-flag"></i></div>
+                        <div class="stat-trend trend-down"><i class="fa-solid fa-arrow-down"></i> 2% <span class="trend-text">from last week</span></div>
+                    </div>
+                    <div class="stat-body">
+                        <span class="stat-value" id="stat-high">0</span>
+                        <span class="stat-title">High Priority Tasks</span>
+                    </div>
+                    <div class="progress-bar-container"><div class="progress-fill" id="pb-high" style="width: 0%"></div></div>
+                </div>
+
+                <div class="stat-card productivity-score">
+                    <div class="stat-header">
+                        <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+                        <div class="stat-trend trend-up"><i class="fa-solid fa-arrow-up"></i> 15% <span class="trend-text">from last week</span></div>
+                    </div>
+                    <div class="stat-body">
+                        <span class="stat-value"><span id="stat-score">0</span>%</span>
+                        <span class="stat-title">Productivity Score</span>
+                    </div>
+                    <div class="progress-bar-container"><div class="progress-fill" id="pb-score" style="width: 0%"></div></div>
+                </div>
+            </section>
+
+            <div class="content-layout-grid">
+                <div class="kanban-section">
+                    <div class="kanban-header-actions">
+                        <h3>Task Board</h3>
+                        <div class="action-buttons">
+                            <button class="filter-btn" id="clearFiltersBtn"><i class="fa-solid fa-filter-circle-xmark"></i> Clear Filters</button>
+                            <button class="add-task-trigger-btn" id="openModalBtn"><i class="fa-solid fa-plus"></i> Add Task</button>
+                        </div>
+                    </div>
+
+                    <div class="kanban-board">
+                        <div class="kanban-column">
+                            <div class="column-title">
+                                <div>To Do <span class="count-badge count-pending" id="badge-todo">0</span></div>
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </div>
+                            <div class="task-list" id="list-todo"></div>
+                            <button class="add-inline-task" data-column="Pending"><i class="fa-solid fa-plus"></i> Add Task</button>
+                        </div>
+
+                        <div class="kanban-column">
+                            <div class="column-title">
+                                <div>In Progress <span class="count-badge count-progress" id="badge-inprogress">0</span></div>
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </div>
+                            <div class="task-list" id="list-inprogress"></div>
+                            <button class="add-inline-task" data-column="In Progress"><i class="fa-solid fa-plus"></i> Add Task</button>
+                        </div>
+
+                        <div class="kanban-column">
+                            <div class="column-title">
+                                <div>Completed <span class="count-badge count-completed" id="badge-completed">0</span></div>
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </div>
+                            <div class="task-list" id="list-completed"></div>
+                            <button class="add-inline-task" data-column="Completed"><i class="fa-solid fa-plus"></i> Add Task</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="side-metrics-column">
+                    <div class="metrics-card updates-section">
+                        <h3>Today's Progress</h3>
+                        <div class="circular-progress-wrapper">
+                            <div class="circular-progress" id="dashboardProgressCircle">
+                                <div class="progress-value" id="circularProgressValue">0%</div>
+                            </div>
+                        </div>
+                        <p class="progress-feedback">Workspace Efficiency 🎉<br><span class="subtext">Keep it up and achieve your goals.</span></p>
+                    </div>
+
+                    <div class="metrics-card productivity-graph-card">
+                        <div class="card-header-flex">
+                            <h3>Productivity</h3>
+                            <select class="time-select"><option>This Week</option></select>
+                        </div>
+                        <div class="productivity-percentage">100%</div>
+                        <div class="vector-graph">
+                            <div class="graph-bar-chart">
+                                <div class="bar" style="height: 40%"></div>
+                                <div class="bar" style="height: 65%"></div>
+                                <div class="bar" style="height: 50%"></div>
+                                <div class="bar" style="height: 85%"></div>
+                                <div class="bar" style="height: 60%"></div>
+                                <div class="bar" style="height: 70%"></div>
+                                <div class="bar" style="height: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="days-label">
+                            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="bottom-metrics-grid">
+                <div class="bottom-card text-center-card">
+                    <h3>Productivity Overview</h3>
+                    <p class="subtext">You are more productive than 70% of users this week.</p>
+                    <div class="triple-progress">
+                        <div class="circle-metric progress-purple">
+                            <div class="inner-circle" id="overview-daily">0%</div>
+                            <span>Daily Progress</span>
+                        </div>
+                        <div class="circle-metric progress-green">
+                            <div class="inner-circle" id="overview-weekly">0%</div>
+                            <span>Weekly Progress</span>
+                        </div>
+                        <div class="circle-metric progress-amber">
+                            <div class="inner-circle">45%</div>
+                            <span>Monthly Progress</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bottom-card recent-activity-card">
+                    <div class="card-header-flex">
+                        <h3>Recent Activity</h3>
+                        <a href="#" class="view-all-link">View All Activity</a>
+                    </div>
+                    <div class="activity-timeline" id="activityTimeline">
+                        </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="task-drawer" id="taskDrawer">
+        <div class="drawer-header">
+            <h3>Task Details</h3>
+            <button class="close-drawer" id="closeDrawerBtn">&times;</button>
+        </div>
+        <div class="drawer-body">
+            <input type="hidden" id="drawerTaskId">
+            
+            <div class="form-group">
+                <label>Task Title</label>
+                <input type="text" id="drawerTaskTitle" class="drawer-select" style="font-weight: bold; font-size: 16px;">
+            </div>
+            
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="drawerTaskDesc" class="drawer-select" rows="4"></textarea>
+            </div>
+            
+            <div class="form-group-inline">
+                <div class="form-group">
+                    <label>Priority</label>
+                    <select class="drawer-select" id="drawerTaskPriority">
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input type="date" class="drawer-select" id="drawerTaskDate">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Status</label>
+                <select class="drawer-select" id="drawerTaskStatus">
+                    <option value="Pending">To Do</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+            
+            <div class="drawer-actions">
+                <button class="btn-action edit-btn" id="drawerSaveBtn"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+                <button class="btn-action delete-btn" id="drawerDeleteBtn"><i class="fa-regular fa-trash-can"></i> Delete Task</button>
+                <button class="btn-action complete-btn" id="drawerCompleteBtn"><i class="fa-solid fa-check"></i> Mark Complete</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Add New Task</h3>
+                <button class="close-modal" id="closeModalBtn">&times;</button>
+            </div>
+            <form class="modal-form" id="addTaskForm">
+                <div class="form-group">
+                    <label for="taskNameInput">Task Name</label>
+                    <input type="text" id="taskNameInput" placeholder="Enter task name" required>
+                </div>
+                <div class="form-group">
+                    <label for="taskDescInput">Description</label>
+                    <textarea id="taskDescInput" placeholder="Enter description details" rows="3"></textarea>
+                </div>
+                <div class="form-group-inline">
+                    <div class="form-group">
+                        <label for="taskPriorityInput">Priority</label>
+                        <select id="taskPriorityInput">
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskDateInput">Due Date</label>
+                        <input type="date" id="taskDateInput" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="taskStatusInput">Status</label>
+                    <select id="taskStatusInput">
+                        <option value="Pending">To Do</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancelModalBtn">Cancel</button>
+                    <button type="submit" class="btn-primary button-loader-target">
+                        <span class="btn-text">Create Task</span>
+                        <div class="btn-spinner"></div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <script src="/dashboard/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/register/style.css">
+    <style>
+        .auth-theme-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="left-panel">
+            <div class="logo-area">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a6 6 0 0 1 8.49 8.49Z"/></svg>
+                <span>Dashboard</span>
+            </div>
+            
+            <div class="welcome-text">
+                <h1>Create your account <span>and get started</span></h1>
+                <p>Join thousands of users managing and growing their business with ease.</p>
+            </div>
+
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="icon-wrapper blue">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    </div>
+                    <div>
+                        <h3>Real-time Insights</h3>
+                        <p>Track performance and make data-driven decisions.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="icon-wrapper green">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <div>
+                        <h3>Secure & Reliable</h3>
+                        <p>Enterprise-grade security to keep your data safe.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="icon-wrapper purple">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <div>
+                        <h3>Team Collaboration</h3>
+                        <p>Work together and achieve more as a team.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="security-note">
+                <div class="icon-wrapper shield-blue">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </div>
+                <div>
+                    <h4>Your security is our priority.</h4>
+                    <p>We use industry-standard encryption to protect your data and privacy.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="form-wrapper">
+
+                <div class="auth-theme-container">
+                    <div class="header-theme-switch-box" style="display: flex; align-items: center; gap: 10px; border: 1px solid #e2e8f0; padding: 6px 12px; border-radius: 30px;">
+                        <i class="fa-solid fa-sun icon-sun" style="color: #f59e0b; font-size: 13px;"></i>
+                        <label class="theme-switch-label" style="position: relative; display: inline-block; width: 34px; height: 18px;">
+                            <input type="checkbox" id="headerThemeToggle" style="opacity: 0; width: 0; height: 0;">
+                            <span class="theme-switch-slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .35s; border-radius: 30px;"></span>
+                        </label>
+                        <i class="fa-solid fa-moon icon-moon" style="color: #94a3b8; font-size: 13px;"></i>
+                    </div>
+                </div>
+
+                <div class="auth-tabs">
+                    <a href="index.html" class="tab-item">Sign In</a>
+                    <a href="register.html" class="tab-item active">Register</a>
+                </div>
+
+                <h2>Create your <span>account</span></h2>
+                <p class="subtitle">Fill in your details to get started</p>
+
+                <form onsubmit="register(); return false;">
+                    
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="fullname">Full Name</label>
+                            <div class="input-field-wrapper">
+                                <span class="field-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                </span>
+                                <input type="text" id="fullname" placeholder="Enter your full name" required>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="email">Email Address</label>
+                            <div class="input-field-wrapper">
+                                <span class="field-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                </span>
+                                <input type="email" id="email" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <div class="input-field-wrapper">
+                            <span class="field-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            </span>
+                            <input type="text" id="username" placeholder="Choose a username" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="password">Password</label>
+                            <div class="input-field-wrapper">
+                                <span class="field-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                </span>
+                                <input type="password" id="password" placeholder="Create password" required>
+                                <span class="password-toggle">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <div class="input-field-wrapper">
+                                <span class="field-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                </span>
+                                <input type="password" id="confirm-password" placeholder="Confirm password" required>
+                                <span class="password-toggle">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="strength-meter-container">
+                        <div class="strength-label">Password strength: <span class="weak">Weak</span></div>
+                        <div class="meter-bars">
+                            <div class="bar active red"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+                    </div>
+
+                    <p id="msg" style="color: #dc3545; font-size: 13px; min-height: 0px; margin: 0;"></p>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" required>
+                            <span>I agree to the <a href="#" class="inline-link">Terms of Service</a> and <a href="#" class="inline-link">Privacy Policy</a></span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                        Create Account
+                    </button>
+                </form>
+
+                <div class="divider">
+                    <span>or continue with</span>
+                </div>
+
+                <div class="sso-buttons">
+                    <button class="sso-btn">
+                        <img src="/img/google-logo-transparent-free-png.webp" alt="Google" width="35" height="35" style="object-fit: contain;">
+                        Continue with Google
+                    </button>
+                    <button class="sso-btn">
+                        <svg width="16" height="16" viewBox="0 0 23 23" fill="#f25022"><rect x="0" y="0" width="11" height="11"/><rect x="12" y="0" width="11" height="11" fill="#7fba00"/><rect x="0" y="12" width="11" height="11" fill="#00a4ef"/><rect x="12" y="12" width="11" height="11" fill="#ffb900"/></svg>
+                        Continue with Microsoft
+                    </button>
+                </div>
+
+                <p class="signup-prompt">Already have an account? <a href="index.html">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>
