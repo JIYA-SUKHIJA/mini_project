@@ -644,3 +644,25 @@ label { display: block; font-size: 12px; font-weight: 600; color: var(--text-mut
     background-color: rgba(99, 102, 241, 0.08); /* Primary color low opacity */
     border-color: var(--primary-color);
 }
+
+/* --- MY TASKS VIEW TOGGLE --- */
+
+/* Hide the top header, stats grid, right-side metrics, and bottom metrics */
+.tasks-only-view .top-header,
+.tasks-only-view .stats-grid,
+.tasks-only-view .side-metrics-column,
+.tasks-only-view .bottom-metrics-grid {
+    display: none !important;
+}
+
+/* Expand the Kanban board to take up 100% of the remaining space */
+.tasks-only-view .content-layout-grid {
+    grid-template-columns: 1fr;
+    max-width: 1100px; /* Limits width so it doesn't look stretched */
+    margin: 0 auto;    /* Centers it */
+}
+
+/* Smoothly animate the height collapse when hiding elements */
+.main-content {
+    transition: var(--transition-smooth);
+}
