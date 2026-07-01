@@ -121,7 +121,6 @@ window.addEventListener("load", () => {
   }, 600);
 });
 
-// Ensure this is inside your existing DOMContentLoaded listener in script.js
 document.addEventListener("DOMContentLoaded", () => {
   renderTaskBoard();
   renderActivityTimeline();
@@ -131,18 +130,35 @@ document.addEventListener("DOMContentLoaded", () => {
     "Dynamic timeline parameters initialized successfully.",
   );
 
-  // --- FIX: Ensure logout button is bound here ---
+  // --- DYNAMIC USERNAME LOGIC ---
+  const currentUserStr = localStorage.getItem('currentUser');
+  if (currentUserStr) {
+      const currentUser = JSON.parse(currentUserStr);
+      const fullName = currentUser.fullname; 
+      
+      // Grab just the first name for the welcome text
+      const firstName = fullName.split(' ')[0]; 
+
+      // 1. Update the big welcome text
+      const welcomeMsg = document.querySelector('.welcome-msg h1');
+      if (welcomeMsg) {
+          welcomeMsg.innerHTML = `Welcome back, ${escapeHTML(firstName)}! 👋`;
+      }
+
+      // 2. Update the profile name in the top right
+      const profileName = document.querySelector('.user-name');
+      if (profileName) {
+          profileName.textContent = escapeHTML(fullName);
+      }
+  }
+
+  // --- ENSURE LOGOUT BUTTON IS BOUND ---
   const sidebarLogoutBtn = document.getElementById("sidebarLogoutBtn");
   if (sidebarLogoutBtn) {
     sidebarLogoutBtn.addEventListener("click", logout);
   }
 });
 
-function logout() {
-    localStorage.clear();
-    // Use ../ to navigate out of the 'dashboard' folder to the root
-    location.href = "../index.html"; 
-}
 // SIDEBAR MECHANICS
 function toggleSidebarState() {
   sidebar.classList.toggle("collapsed");
@@ -488,14 +504,14 @@ if (addTaskForm) {
         date: date,
         status: status,
       });
-      saveTasks(); // <--- NEW: Commit to database
+      saveTasks(); // Commit to database
 
       addTaskForm.reset();
       if (submitBtn) submitBtn.classList.remove("button-loading");
       modalOverlay.classList.remove("active");
 
       renderTaskBoard();
-      logActivity(`Added task "${name}" to board`, "info"); // Logs transaction dynamically
+      logActivity(`Added task "${name}" to board`, "info"); 
       spawnNotification(
         "Task Saved Successfully",
         "Card appended to structural columns maps.",
@@ -663,24 +679,16 @@ function escapeHTML(str) {
 
 // 8. GLOBAL UTILITY FUNCTIONS
 function logout() {
-    localStorage.clear();
-    // Use ../ to navigate out of the 'dashboard' folder to the root
-    location.href = "../index.html"; 
-}
-
-// Add this click listener to bind the HTML button to your logout function
-document.addEventListener("DOMContentLoaded", () => {
-    // 1. Find the button after the page is fully loaded
-    const sidebarLogoutBtn = document.getElementById("sidebarLogoutBtn");
+    const confirmLogout = confirm("Are you sure you want to sign out?");
     
-    // 2. Only add the listener if the button actually exists
-    if (sidebarLogoutBtn) {
-        sidebarLogoutBtn.addEventListener("click", logout);
-        console.log("Logout button listener attached successfully.");
-    } else {
-        console.warn("Logout button not found in the DOM.");
+    if (confirmLogout) {
+        // FIX: Remove ONLY the active session tokens, do NOT use clear()
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        
+        location.href = "../index.html"; 
     }
-});
+}
 
 // GLOBAL UTILITY: Inline Delete Function for Kanban Cards
 window.quickDeleteTask = function (id, title) {

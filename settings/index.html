@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Settings</title>
+    <link rel="stylesheet" href="/settings/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon"><i class="fa-solid fa-check"></i></div>
+                <div class="logo-text">
+                    <h2>TaskFlow</h2>
+                    <p>To-Do Dashboard</p>
+                </div>
+            </div>
+
+            <span class="menu-label">MENU</span>
+            <nav class="sidebar-nav">
+                <a href="/dashboard/index.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-list-check"></i> My Tasks</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-circle-check"></i> Completed Tasks</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-clock"></i> Pending Tasks</a>
+                <a href="/calendar/index.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i> Calendar</a>
+                <a href="/settings/index.html" class="nav-item active"><i class="fa-solid fa-gear"></i> Settings</a>
+            </nav>
+
+            <span class="menu-label mt-20">LABELS</span>
+            <nav class="sidebar-nav labels-nav">
+                <a href="#" class="nav-item label-item"><span class="dot-indicator dot-red"></span> High Priority</a>
+                <a href="#" class="nav-item label-item"><span class="dot-indicator dot-yellow"></span> Medium Priority</a>
+                <a href="#" class="nav-item label-item"><span class="dot-indicator dot-green"></span> Low Priority</a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="card logout-card">
+                    <h3>Finished Working? <i class="fa-solid fa-arrow-right-from-bracket"></i></h3>
+                    <p>Save your changes and sign out safely.</p>
+                    <button class="btn-danger">Logout</button>
+                </div>
+                <div class="sidebar-footer">
+                    <button class="collapse-btn"><i class="fa-solid fa-arrow-left"></i> Collapse</button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content settings-main">
+            <header class="main-header">
+                <div class="header-titles">
+                    <h1>Settings</h1>
+                </div>
+            </header>
+
+            <div class="settings-grid">
+                <div class="settings-card">
+                    <h3>Preferences</h3>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Dark Mode</strong>
+                            <p>Toggle system-wide theme.</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Language</strong>
+                            <p>Choose your preferred language.</p>
+                        </div>
+                        <select class="form-select">
+                            <option>English</option>
+                            <option>Spanish</option>
+                            <option>French</option>
+                        </select>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Date Format</strong>
+                            <p>Choose how dates are displayed.</p>
+                        </div>
+                        <select class="form-select">
+                            <option>DD/MM/YYYY</option>
+                            <option>MM/DD/YYYY</option>
+                            <option>YYYY-MM-DD</option>
+                        </select>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Time Format</strong>
+                            <p>Choose how time is displayed.</p>
+                        </div>
+                        <select class="form-select">
+                            <option>12 Hour (AM/PM)</option>
+                            <option>24 Hour</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h3>Research Tools</h3>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Backup Dataset</strong>
+                            <p>Export task state and activity logs as JSON.</p>
+                        </div>
+                        <button class="btn-primary-outline">Export Data</button>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Import Dataset</strong>
+                            <p>Import previously exported JSON data.</p>
+                        </div>
+                        <button class="btn-primary-outline">Import Data</button>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Clear Local Data</strong>
+                            <p>Remove all local data. This action cannot be undone.</p>
+                        </div>
+                        <button class="btn-danger-outline">Clear Data</button>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Sync Mode</strong>
+                            <p>Automatically sync tasks with local research files.</p>
+                        </div>
+                        <input type="checkbox" class="custom-checkbox" checked>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h3>Task Management</h3>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Default Task View</strong>
+                            <p>Choose the default view for tasks.</p>
+                        </div>
+                        <select class="form-select">
+                            <option>List View</option>
+                            <option>Board View</option>
+                        </select>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Tasks Per Page</strong>
+                            <p>Set how many tasks to show per page.</p>
+                        </div>
+                        <select class="form-select">
+                            <option>10</option>
+                            <option>25</option>
+                            <option>50</option>
+                        </select>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Auto Archive Completed</strong>
+                            <p>Automatically archive tasks after completion.</p>
+                        </div>
+                        <input type="checkbox" class="custom-checkbox" checked>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h3>Notifications</h3>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Enable Notifications</strong>
+                            <p>Receive reminders and updates.</p>
+                        </div>
+                        <input type="checkbox" class="custom-checkbox" checked>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Daily Reminder Time</strong>
+                            <p>Set a time for daily task reminders.</p>
+                        </div>
+                        <input type="time" class="form-input" value="09:00">
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Browser Notifications</strong>
+                            <p>Allow browser to show push notifications.</p>
+                        </div>
+                        <input type="checkbox" class="custom-checkbox" checked>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h3>Appearance</h3>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Primary Color</strong>
+                            <p>Customize the primary theme color.</p>
+                        </div>
+                        <div class="color-picker-mock" style="background: #6c5ce7;"></div>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Sidebar Style</strong>
+                            <p>Choose how the sidebar looks.</p>
+                        </div>
+                        <select class="form-select">
+                            <option>Dark</option>
+                            <option>Light</option>
+                        </select>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Compact Mode</strong>
+                            <p>Reduce spacing for a more compact view.</p>
+                        </div>
+                        <input type="checkbox" class="custom-checkbox">
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h3>Account & Security</h3>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Change Password</strong>
+                            <p>Update your account password.</p>
+                        </div>
+                        <button class="btn-primary-outline">Change</button>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Session Timeout</strong>
+                            <p>Automatically log out after inactivity.</p>
+                        </div>
+                        <select class="form-select">
+                            <option>30 Minutes</option>
+                            <option>1 Hour</option>
+                            <option>Never</option>
+                        </select>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Delete Account</strong>
+                            <p>Permanently delete your account and all data.</p>
+                        </div>
+                        <button class="btn-danger-outline">Delete Account</button>
+                    </div>
+                </div>
+
+                <div class="settings-card full-width">
+                    <h3>About</h3>
+                    <div class="about-row">
+                        <div class="about-icon"><i class="fa-solid fa-circle-info"></i></div>
+                        <div class="about-info">
+                            <strong>Version</strong>
+                            <p>You are using TaskFlow v1.0.0</p>
+                        </div>
+                        <span class="version-tag">v1.0.0</span>
+                    </div>
+                    <div class="about-row">
+                        <div class="about-icon"><i class="fa-regular fa-circle-question"></i></div>
+                        <div class="about-info">
+                            <strong>Help & Support</strong>
+                            <p>View documentation or contact support.</p>
+                        </div>
+                        <button class="btn-primary-outline">View Help</button>
+                    </div>
+                    <div class="about-row">
+                        <div class="about-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div class="about-info">
+                            <strong>Privacy Policy</strong>
+                            <p>Read our privacy policy.</p>
+                        </div>
+                        <button class="btn-primary-outline">View Policy</button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+    <script src="/settings/script.js"></script>
+</body>
+</html>

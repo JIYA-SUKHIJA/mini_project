@@ -116,7 +116,7 @@ body {
 
 .form-wrapper {
     width: 100%;
-    max-width: 520px; /* Slightly wider to give room for 2 columns side by side */
+    max-width: 520px; 
 }
 
 /* Tab Navigation CSS */

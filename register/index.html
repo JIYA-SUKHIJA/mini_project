@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/register/style.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         .auth-theme-container {
             display: flex;
@@ -86,8 +86,8 @@
                 </div>
 
                 <div class="auth-tabs">
-                    <a href="index.html" class="tab-item">Sign In</a>
-                    <a href="register.html" class="tab-item active">Register</a>
+                    <a href="../index.html" class="tab-item">Sign In</a>
+                    <a href="index.html" class="tab-item active">Register</a>
                 </div>
 
                 <h2>Create your <span>account</span></h2>
@@ -155,25 +155,14 @@
                         </div>
                     </div>
 
-                    <div class="strength-meter-container">
-                        <div class="strength-label">Password strength: <span class="weak">Weak</span></div>
-                        <div class="meter-bars">
-                            <div class="bar active red"></div>
-                            <div class="bar"></div>
-                            <div class="bar"></div>
-                            <div class="bar"></div>
-                            <div class="bar"></div>
-                        </div>
-                    </div>
-
-                    <p id="msg" style="color: #dc3545; font-size: 13px; min-height: 0px; margin: 0;"></p>
-
                     <div class="form-options">
                         <label class="remember-me">
                             <input type="checkbox" required>
                             <span>I agree to the <a href="#" class="inline-link">Terms of Service</a> and <a href="#" class="inline-link">Privacy Policy</a></span>
                         </label>
                     </div>
+
+                    <p id="msg" style="color: #ef4444; font-size: 13px; text-align: center; min-height: 18px; margin-bottom: 0;"></p>
 
                     <button type="submit" class="submit-btn">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
@@ -187,7 +176,7 @@
 
                 <div class="sso-buttons">
                     <button class="sso-btn">
-                        <img src="/img/google-logo-transparent-free-png.webp" alt="Google" width="35" height="35" style="object-fit: contain;">
+                        <img src="../img/google-logo-transparent-free-png.webp" alt="Google" width="35" height="35" style="object-fit: contain;">
                         Continue with Google
                     </button>
                     <button class="sso-btn">
@@ -196,11 +185,11 @@
                     </button>
                 </div>
 
-                <p class="signup-prompt">Already have an account? <a href="/index.html">Sign in</a></p>
+                <p class="signup-prompt">Already have an account? <a href="../index.html">Sign in</a></p>
             </div>
         </div>
     </div>
 
-    <script src="auth.js"></script>
+    <script src="../auth.js"></script>
 </body>
 </html>

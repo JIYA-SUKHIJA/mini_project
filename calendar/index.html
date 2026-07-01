@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon"><i class="fa-solid fa-check"></i></div>
+                <div class="logo-text">
+                    <h2>TaskFlow</h2>
+                    <p>To-Do Dashboard</p>
+                </div>
+            </div>
+
+            <span class="menu-label">MENU</span>
+            <nav class="sidebar-nav">
+                <a href="/dashboard/index.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-list-check"></i> My Tasks</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-circle-check"></i> Completed Tasks</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-clock"></i> Pending Tasks</a>
+                <a href="/calendar/index.html" class="nav-item active"><i class="fa-solid fa-calendar-days"></i> Calendar</a>
+                <a href="/settings/index.html" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            </nav>
+
+            <span class="menu-label mt-20">LABELS</span>
+            <nav class="sidebar-nav labels-nav">
+                <a href="#" class="nav-item label-item"><span class="dot-indicator dot-red"></span> High Priority</a>
+                <a href="#" class="nav-item label-item"><span class="dot-indicator dot-yellow"></span> Medium Priority</a>
+                <a href="#" class="nav-item label-item"><span class="dot-indicator dot-green"></span> Low Priority</a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="card logout-card">
+                    <h3>Finished Working? <i class="fa-solid fa-arrow-right-from-bracket"></i></h3>
+                    <p>Save your changes and sign out safely.</p>
+                    <button class="btn-danger">Logout</button>
+                </div>
+                <div class="sidebar-footer">
+                    <button class="collapse-btn"><i class="fa-solid fa-arrow-left"></i> Collapse</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CALENDAR AREA -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-titles">
+                    <h1>July 2026 <i class="fa-solid fa-chevron-down"></i></h1>
+                    <p>Plan your tasks and stay on track.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-outline">Today</button>
+                    <div class="nav-arrows">
+                        <button class="btn-icon"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="btn-icon"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                    <button class="btn-primary"><i class="fa-solid fa-plus"></i> Add Task</button>
+                </div>
+            </header>
+
+            <div class="toolbar">
+                <div class="view-toggles">
+                    <button class="toggle-btn active">Month</button>
+                    <button class="toggle-btn">Week</button>
+                    <button class="toggle-btn">Day</button>
+                    <button class="toggle-btn">Agenda</button>
+                </div>
+                <div class="action-toggles">
+                    <button class="btn-outline"><i class="fa-solid fa-filter"></i> Filter</button>
+                    <button class="btn-outline"><i class="fa-solid fa-rotate"></i> Sync</button>
+                </div>
+            </div>
+
+            <div class="calendar-wrapper">
+                <div class="calendar-header-days">
+                    <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar days will be generated here by JS -->
+                </div>
+            </div>
+        </main>
+
+        <!-- RIGHT PANEL -->
+        <aside class="right-panel">
+            <div class="panel-header">
+                <div>
+                    <h3>Thursday, July 30, 2026</h3>
+                    <p>2 tasks scheduled</p>
+                </div>
+                <button class="btn-icon-clear"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+
+            <section class="task-section">
+                <h4>Today's Tasks</h4>
+                <div class="task-item">
+                    <div class="task-info">
+                        <i class="fa-regular fa-circle"></i>
+                        <div>
+                            <strong>Prepare presentation</strong>
+                            <span>Work</span>
+                        </div>
+                    </div>
+                    <span class="task-time">10:00 AM <span class="dot dot-yellow"></span></span>
+                </div>
+                <div class="task-item">
+                    <div class="task-info">
+                        <i class="fa-regular fa-circle"></i>
+                        <div>
+                            <strong>Team sync meeting</strong>
+                            <span>Work</span>
+                        </div>
+                    </div>
+                    <span class="task-time">03:00 PM <span class="dot dot-blue"></span></span>
+                </div>
+            </section>
+
+            <section class="task-section">
+                <div class="section-title-row">
+                    <h4>Upcoming</h4>
+                    <a href="#" class="view-all">View all</a>
+                </div>
+                <div class="upcoming-item">
+                    <div>
+                        <strong>Design Review</strong>
+                        <span>Tomorrow, 11:00 AM</span>
+                    </div>
+                    <span class="dot dot-blue"></span>
+                </div>
+                <div class="upcoming-item">
+                    <div>
+                        <strong>Client Meeting</strong>
+                        <span>Aug 6, 2026</span>
+                    </div>
+                    <span class="dot dot-yellow"></span>
+                </div>
+                <div class="upcoming-item">
+                    <div>
+                        <strong>Sprint Planning</strong>
+                        <span>Aug 22, 2026</span>
+                    </div>
+                    <span class="dot dot-blue"></span>
+                </div>
+            </section>
+
+            <section class="stats-section">
+                <h4>Quick Stats</h4>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fa-solid fa-clipboard-list icon-blue"></i>
+                        <div class="stat-info"><strong>18</strong><span>Tasks This Month</span></div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fa-solid fa-check icon-green"></i>
+                        <div class="stat-info"><strong>7</strong><span>Completed</span></div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fa-solid fa-clock icon-yellow"></i>
+                        <div class="stat-info"><strong>11</strong><span>Pending</span></div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fa-solid fa-calendar-xmark icon-red"></i>
+                        <div class="stat-info"><strong>4</strong><span>Overdue</span></div>
+                    </div>
+                </div>
+            </section>
+        </aside>
+
+        <!-- MODAL -->
+        <div class="modal-overlay" id="taskModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Create New Task</h2>
+                    <button class="btn-icon-clear" id="closeModal"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>Task Name</label>
+                        <input type="text" id="newTaskName" placeholder="e.g., Finalize Q3 Report" autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <label>Category</label>
+                        <select id="newTaskCategory">
+                            <option value="Work">Work</option>
+                            <option value="Personal">Personal</option>
+                            <option value="Urgent">Urgent</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Time</label>
+                        <input type="time" id="newTaskTime">
+                    </div>
+                    <button class="btn-primary" id="saveTaskBtn" style="width: 100%; margin-top: 15px;">Save Task</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
