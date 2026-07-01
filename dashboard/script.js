@@ -68,6 +68,28 @@ document.addEventListener("DOMContentLoaded", () => {
   if (sidebarLogoutBtn) {
     sidebarLogoutBtn.addEventListener("click", logout);
   }
+
+  // --- Notification Bell Logic ---
+  const notifBtn = document.getElementById("notificationTriggerBtn");
+  const notifDropdown = document.getElementById("notificationDropdown");
+  if (notifBtn && notifDropdown) {
+      notifBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          notifDropdown.classList.toggle("active");
+      });
+      
+      // Close dropdown when clicking anywhere else
+      document.addEventListener("click", (e) => {
+          if (!notifBtn.contains(e.target)) {
+              notifDropdown.classList.remove("active");
+          }
+      });
+      
+      // Prevent closing when interacting inside the dropdown
+      notifDropdown.addEventListener("click", (e) => {
+          e.stopPropagation();
+      });
+  }
 });
 
 function loadUserProfile() {
@@ -176,8 +198,40 @@ if (taskSearchInput) {
   });
 }
 
-function updateMetricDOM() {
-    // Left empty intentionally to prevent errors from missing stats grid
+// Function to update the Notifications badge and dropdown list
+function updateNotifications() {
+    const badge = document.getElementById("notificationBadge");
+    const notifList = document.getElementById("notificationList");
+    if (!badge || !notifList) return;
+
+    // Filter tasks that are not yet Completed
+    const activeTasks = taskState.filter(t => t.status === "Pending" || t.status === "In Progress");
+    
+    // Update the red badge count
+    badge.innerText = activeTasks.length;
+    if (activeTasks.length === 0) {
+        badge.style.display = 'none';
+        notifList.innerHTML = `<div class="notif-empty">No active tasks! You're all caught up. 🎉</div>`;
+        return;
+    } else {
+        badge.style.display = 'flex';
+    }
+
+    // Populate dropdown with active tasks
+    notifList.innerHTML = "";
+    activeTasks.forEach(task => {
+        const statusClass = task.status === "Pending" ? "pending" : "inprogress";
+        const item = document.createElement("div");
+        item.className = "notif-item";
+        item.innerHTML = `
+            <div class="notif-title">${escapeHTML(task.title)}</div>
+            <div class="notif-meta">
+                <span class="notif-status ${statusClass}">${task.status}</span>
+                <span>${task.date}</span>
+            </div>
+        `;
+        notifList.appendChild(item);
+    });
 }
 
 function renderTaskBoard() {
@@ -228,7 +282,9 @@ function renderTaskBoard() {
   document.getElementById("badge-todo").innerText = tCount;
   document.getElementById("badge-inprogress").innerText = pCount;
   document.getElementById("badge-completed").innerText = cCount;
-  updateMetricDOM();
+  
+  // Call updateNotifications every time the board is re-rendered
+  updateNotifications();
 }
 
 let draggedTaskId = null;
@@ -406,3 +462,27 @@ window.quickDeleteTask = function (id, title) {
     }
   }
 };
+
+// --- DARK MODE LOGIC FOR DASHBOARD ---
+document.addEventListener("DOMContentLoaded", () => {
+    const themeToggle = document.getElementById("headerThemeToggle");
+
+    // Check localStorage first to see if the user previously chose a theme
+    const currentTheme = localStorage.getItem("theme");
+    if (currentTheme === "dark") {
+        document.body.classList.add("dark-theme");
+        if (themeToggle) themeToggle.checked = true;
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener("change", () => {
+            if (themeToggle.checked) {
+                document.body.classList.add("dark-theme");
+                localStorage.setItem("theme", "dark");
+            } else {
+                document.body.classList.remove("dark-theme");
+                localStorage.setItem("theme", "light");
+            }
+        });
+    }
+});
