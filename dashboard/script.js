@@ -1,4 +1,4 @@
-// Default template tasks for first-time visitors
+// Default template tasks for first-time visitors (Admin only now)
 const defaultTasks = [
   { id: "task-1", title: "Draft methodology for SSL-HGMamba architecture", desc: "Integrate hypergraphs and State Space Models for temporal modeling.", priority: "High", date: "2026-06-30", status: "In Progress" },
   { id: "task-2", title: "Review examination papers", desc: "Grade the recent batch for Kurukshetra University.", priority: "Medium", date: "2026-06-28", status: "Pending" },
@@ -8,14 +8,24 @@ const defaultTasks = [
   { id: "task-6", title: "Draft education loan correspondence", desc: "Prepared formal letter to Canara Bank regarding Geeta University MCA course fees.", priority: "High", date: "2026-07-15", status: "Completed" },
 ];
 
-let taskState = JSON.parse(localStorage.getItem("kanbanTasks"));
-if (!taskState || taskState.length === 0) {
-  taskState = defaultTasks;
-  saveTasks();
+// Retrieve currentUser from localStorage to namespace tasks
+const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+const userEmail = currentUser.email || 'guest';
+const tasksStorageKey = `kanbanTasks_${userEmail}`;
+
+let taskState = JSON.parse(localStorage.getItem(tasksStorageKey));
+
+if (!taskState) {
+    if (userEmail === 'admin') {
+        taskState = defaultTasks;
+    } else {
+        taskState = []; 
+    }
+    saveTasks();
 }
 
 function saveTasks() {
-  localStorage.setItem("kanbanTasks", JSON.stringify(taskState));
+  localStorage.setItem(tasksStorageKey, JSON.stringify(taskState));
 }
 
 let activityHistory = [
@@ -58,18 +68,56 @@ window.addEventListener("load", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadUserProfile(); // Dynamically insert user data
+  loadUserProfile(); 
   renderTaskBoard();
   renderActivityTimeline();
   repositionIndicator();
   spawnNotification("Workspace Loaded", "Dynamic timeline parameters initialized successfully.");
 
+  // 1. Sidebar Logout Button Handler
   const sidebarLogoutBtn = document.getElementById("sidebarLogoutBtn");
   if (sidebarLogoutBtn) {
     sidebarLogoutBtn.addEventListener("click", logout);
   }
 
-  // --- Notification Bell Logic ---
+  // 2. User Profile Wrapper (Image + Text) Logout Handler
+  const userProfileWrapper = document.querySelector(".user-profile");
+  if (userProfileWrapper) {
+      userProfileWrapper.style.cursor = "pointer";
+      userProfileWrapper.addEventListener("click", (e) => {
+          e.stopPropagation(); 
+          logout();
+      });
+  }
+
+  // 3. Welcome Message Greeting Pop-up Handler with a Long Greeting Message
+  const welcomeMsg = document.querySelector(".welcome-msg");
+  if (welcomeMsg) {
+      welcomeMsg.style.cursor = "pointer";
+      welcomeMsg.addEventListener("click", () => {
+          const userDataStr = localStorage.getItem('currentUser');
+          let name = 'User';
+          if (userDataStr) {
+              try {
+                  const user = JSON.parse(userDataStr);
+                  name = user.fullname || 'User';
+              } catch (e) {
+                  console.error(e);
+              }
+          }
+          
+          alert(
+              `✨ Welcome to TaskFlow, ${name}! ✨\n\n` +
+              `We are absolutely thrilled to have you back in your workspace today. ` +
+              `Your production environment is running smoothly, and everything is synchronized ` +
+              `and waiting for you to conquer your daily objectives.\n\n` +
+              `💡 Quick Tip: Remember that you can drag and drop your task blocks across columns ` +
+              `to seamlessly update your live workflow metrics on the fly.\n\n` +
+              `Let's make today incredibly productive and hit those goals! 🚀`
+          );
+      });
+  }
+
   const notifBtn = document.getElementById("notificationTriggerBtn");
   const notifDropdown = document.getElementById("notificationDropdown");
   if (notifBtn && notifDropdown) {
@@ -77,17 +125,33 @@ document.addEventListener("DOMContentLoaded", () => {
           e.stopPropagation();
           notifDropdown.classList.toggle("active");
       });
-      
-      // Close dropdown when clicking anywhere else
       document.addEventListener("click", (e) => {
           if (!notifBtn.contains(e.target)) {
               notifDropdown.classList.remove("active");
           }
       });
-      
-      // Prevent closing when interacting inside the dropdown
       notifDropdown.addEventListener("click", (e) => {
           e.stopPropagation();
+      });
+  }
+
+  // Dark Mode Logic
+  const themeToggle = document.getElementById("headerThemeToggle");
+  const currentTheme = localStorage.getItem("theme");
+  if (currentTheme === "dark") {
+      document.body.classList.add("dark-theme");
+      if (themeToggle) themeToggle.checked = true;
+  }
+
+  if (themeToggle) {
+      themeToggle.addEventListener("change", () => {
+          if (themeToggle.checked) {
+              document.body.classList.add("dark-theme");
+              localStorage.setItem("theme", "dark");
+          } else {
+              document.body.classList.remove("dark-theme");
+              localStorage.setItem("theme", "light");
+          }
       });
   }
 });
@@ -98,19 +162,13 @@ function loadUserProfile() {
         try {
             const user = JSON.parse(userDataStr);
             const fullName = user.fullname || 'User';
-            const firstName = fullName.split(' ')[0]; // Gets the first name
+            const firstName = fullName.split(' ')[0]; 
             
-            // Set the Welcome Greeting
             const welcomeDisplay = document.getElementById('userNameDisplay');
-            if (welcomeDisplay) {
-                welcomeDisplay.textContent = firstName;
-            }
+            if (welcomeDisplay) welcomeDisplay.textContent = firstName;
 
-            // Set the Profile Name display
             const profileDisplay = document.getElementById('userFullNameDisplay');
-            if (profileDisplay) {
-                profileDisplay.textContent = fullName;
-            }
+            if (profileDisplay) profileDisplay.textContent = fullName;
         } catch (e) {
             console.error("Error parsing user data", e);
         }
@@ -182,10 +240,19 @@ if (clearFiltersBtn) {
     searchFilterStr = "";
     priorityFilterStr = "";
     statusFilterStr = "all";
+    
     if (taskSearchInput) taskSearchInput.value = "";
+    
     labelFilterBtns.forEach((b) => b.classList.remove("active-label-filter"));
+    
     menuItems.forEach((i) => i.classList.remove("active"));
     if (menuItems[0]) menuItems[0].classList.add("active");
+    
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+        mainContent.classList.remove("tasks-only-view");
+    }
+    
     repositionIndicator();
     renderTaskBoard();
   });
@@ -198,16 +265,13 @@ if (taskSearchInput) {
   });
 }
 
-// Function to update the Notifications badge and dropdown list
 function updateNotifications() {
     const badge = document.getElementById("notificationBadge");
     const notifList = document.getElementById("notificationList");
     if (!badge || !notifList) return;
 
-    // Filter tasks that are not yet Completed
     const activeTasks = taskState.filter(t => t.status === "Pending" || t.status === "In Progress");
     
-    // Update the red badge count
     badge.innerText = activeTasks.length;
     if (activeTasks.length === 0) {
         badge.style.display = 'none';
@@ -217,7 +281,6 @@ function updateNotifications() {
         badge.style.display = 'flex';
     }
 
-    // Populate dropdown with active tasks
     notifList.innerHTML = "";
     activeTasks.forEach(task => {
         const statusClass = task.status === "Pending" ? "pending" : "inprogress";
@@ -232,6 +295,33 @@ function updateNotifications() {
         `;
         notifList.appendChild(item);
     });
+}
+
+function updateProductivityMetrics() {
+    const totalTasks = taskState.length;
+    const completedTasks = taskState.filter(t => t.status === "Completed").length;
+
+    let overallProgress = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
+
+    const circleValue = document.getElementById("circularProgressValue");
+    if (circleValue) circleValue.innerText = `${overallProgress}%`;
+
+    const progressCircle = document.getElementById("dashboardProgressCircle");
+    if (progressCircle) {
+        progressCircle.style.background = `conic-gradient(var(--primary-color) ${overallProgress * 3.6}deg, var(--border-color) 0deg)`;
+    }
+
+    const dailyElem = document.getElementById("overview-daily");
+    const weeklyElem = document.getElementById("overview-weekly");
+    const monthlyElem = document.querySelector(".progress-amber .inner-circle");
+
+    let dailyProg = totalTasks === 0 ? 0 : Math.min(100, Math.round(overallProgress * 1.2));
+    let weeklyProg = overallProgress;
+    let monthlyProg = totalTasks === 0 ? 0 : Math.max(0, Math.round(overallProgress * 0.8) + 15);
+
+    if (dailyElem) dailyElem.innerText = `${dailyProg}%`;
+    if (weeklyElem) weeklyElem.innerText = `${weeklyProg}%`;
+    if (monthlyElem) monthlyElem.innerText = `${monthlyProg}%`;
 }
 
 function renderTaskBoard() {
@@ -283,8 +373,8 @@ function renderTaskBoard() {
   document.getElementById("badge-inprogress").innerText = pCount;
   document.getElementById("badge-completed").innerText = cCount;
   
-  // Call updateNotifications every time the board is re-rendered
   updateNotifications();
+  updateProductivityMetrics(); 
 }
 
 let draggedTaskId = null;
@@ -414,7 +504,7 @@ if (document.getElementById("drawerCompleteBtn")) {
       renderTaskBoard();
       closeDrawer();
       logActivity(`Checked out task "${task.title}" as complete`, "success");
-      spawnNotification("Task Completed", "Dashboard metrics not available.");
+      spawnNotification("Task Completed", "Dashboard metrics updated.");
     }
   });
 }
@@ -462,27 +552,3 @@ window.quickDeleteTask = function (id, title) {
     }
   }
 };
-
-// --- DARK MODE LOGIC FOR DASHBOARD ---
-document.addEventListener("DOMContentLoaded", () => {
-    const themeToggle = document.getElementById("headerThemeToggle");
-
-    // Check localStorage first to see if the user previously chose a theme
-    const currentTheme = localStorage.getItem("theme");
-    if (currentTheme === "dark") {
-        document.body.classList.add("dark-theme");
-        if (themeToggle) themeToggle.checked = true;
-    }
-
-    if (themeToggle) {
-        themeToggle.addEventListener("change", () => {
-            if (themeToggle.checked) {
-                document.body.classList.add("dark-theme");
-                localStorage.setItem("theme", "dark");
-            } else {
-                document.body.classList.remove("dark-theme");
-                localStorage.setItem("theme", "light");
-            }
-        });
-    }
-});

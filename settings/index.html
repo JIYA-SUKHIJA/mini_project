@@ -3,58 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskFlow - Settings</title>
-    <link rel="stylesheet" href="/settings/style.css">
+    <title>Dashboard - Settings</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-container">
-        <aside class="sidebar">
+
+    <div class="global-loader-screen" id="globalLoader">
+        <div class="spinner-loader"></div>
+        <p class="loading-text">Loading Preferences...</p>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="mobile-top-bar">
+            <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Open Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="mobile-logo">
+                <i class="fa-solid fa-square-check"></i> <span>TaskFlow</span>
+            </div>
+        </div>
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <div class="logo-icon"><i class="fa-solid fa-check"></i></div>
-                <div class="logo-text">
-                    <h2>TaskFlow</h2>
-                    <p>To-Do Dashboard</p>
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-square-check"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h2>TaskFlow</h2>
+                        <p>To-Do Dashboard</p>
+                    </div>
+                </div>
+                <button class="toggle-sidebar-btn" id="toggleSidebar" aria-label="Toggle Sidebar">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-menu">
+                <p class="menu-label">MENU</p>
+                <ul class="menu-items-list">
+                    <div class="sliding-indicator" id="slidingIndicator"></div>
+                    
+                    <li class="menu-item" data-index="0">
+                        <a href="../dashboard/index.html"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></a>
+                    </li>
+                    <li class="menu-item" data-index="1">
+                        <a href="../dashboard/index.html"><i class="fa-solid fa-list-check"></i> <span>My Tasks</span></a>
+                    </li>
+                    <li class="menu-item" data-index="2">
+                        <a href="../dashboard/index.html"><i class="fa-solid fa-circle-check"></i> <span>Completed Tasks</span></a>
+                    </li>
+                    <li class="menu-item" data-index="3">
+                        <a href="../dashboard/index.html"><i class="fa-solid fa-clock"></i> <span>Pending Tasks</span></a>
+                    </li>
+                    <li class="menu-item active" data-index="4">
+                        <a href="index.html"><i class="fa-solid fa-gear"></i> <span>Settings</span></a>
+                    </li>
+                </ul>
+
+                <p class="menu-label labels-section">LABELS</p>
+                <ul class="labels-list">
+                    <li class="label-filter-btn"><span class="dot high"></span> <span>High Priority</span></li>
+                    <li class="label-filter-btn"><span class="dot medium"></span> <span>Medium Priority</span></li>
+                    <li class="label-filter-btn"><span class="dot low"></span> <span>Low Priority</span></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-banner">
+                <div class="banner-content">
+                    <h4>Finished Working? <i class="fa-solid fa-right-from-bracket"></i></h4>
+                    <p>Save your changes and sign out safely.</p>
+                    <button class="upgrade-btn" id="sidebarLogoutBtn" style="background-color: #ef4444; border: none; padding: 6px 12px; border-radius: 4px; color: white; cursor: pointer; margin-top: 8px;">Logout</button>
                 </div>
             </div>
 
-            <span class="menu-label">MENU</span>
-            <nav class="sidebar-nav">
-                <a href="/dashboard/index.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
-                <a href="#" class="nav-item"><i class="fa-solid fa-list-check"></i> My Tasks</a>
-                <a href="#" class="nav-item"><i class="fa-solid fa-circle-check"></i> Completed Tasks</a>
-                <a href="#" class="nav-item"><i class="fa-solid fa-clock"></i> Pending Tasks</a>
-                <a href="/calendar/index.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i> Calendar</a>
-                <a href="/settings/index.html" class="nav-item active"><i class="fa-solid fa-gear"></i> Settings</a>
-            </nav>
-
-            <span class="menu-label mt-20">LABELS</span>
-            <nav class="sidebar-nav labels-nav">
-                <a href="#" class="nav-item label-item"><span class="dot-indicator dot-red"></span> High Priority</a>
-                <a href="#" class="nav-item label-item"><span class="dot-indicator dot-yellow"></span> Medium Priority</a>
-                <a href="#" class="nav-item label-item"><span class="dot-indicator dot-green"></span> Low Priority</a>
-            </nav>
-
-            <div class="sidebar-bottom">
-                <div class="card logout-card">
-                    <h3>Finished Working? <i class="fa-solid fa-arrow-right-from-bracket"></i></h3>
-                    <p>Save your changes and sign out safely.</p>
-                    <button class="btn-danger">Logout</button>
-                </div>
-                <div class="sidebar-footer">
-                    <button class="collapse-btn"><i class="fa-solid fa-arrow-left"></i> Collapse</button>
-                </div>
+            <div class="sidebar-footer" id="footerCollapseBtn">
+                <i class="fa-solid fa-arrow-left-long"></i> <span>Collapse</span>
             </div>
         </aside>
 
-        <main class="main-content settings-main">
-            <header class="main-header">
-                <div class="header-titles">
-                    <h1>Settings</h1>
+        <main class="main-content">
+            <header class="top-header">
+                <div class="welcome-section-wrapper">
+                    <div class="welcome-msg">
+                        <h1>Settings ⚙️</h1>
+                        <p>Manage your account preferences and workspace.</p>
+                    </div>
+                    <div class="header-theme-switch-box">
+                        <i class="fa-solid fa-sun icon-sun"></i>
+                        <label class="theme-switch-label">
+                            <input type="checkbox" id="headerThemeToggle">
+                            <span class="theme-switch-slider"></span>
+                        </label>
+                        <i class="fa-solid fa-moon icon-moon"></i>
+                    </div>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="user-profile">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="User Profile">
+                        <div class="user-info">
+                            <span class="user-name" id="userFullNameDisplay">User Name</span>
+                            <span class="user-role">Productive User</span>
+                        </div>
+                    </div>
                 </div>
             </header>
 
             <div class="settings-grid">
+                
                 <div class="settings-card">
                     <h3>Preferences</h3>
                     <div class="setting-row">
@@ -63,7 +124,7 @@
                             <p>Toggle system-wide theme.</p>
                         </div>
                         <label class="toggle-switch">
-                            <input type="checkbox" id="themeToggle">
+                            <input type="checkbox" id="bodyThemeToggle">
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -89,48 +150,6 @@
                             <option>YYYY-MM-DD</option>
                         </select>
                     </div>
-                    <div class="setting-row">
-                        <div class="setting-info">
-                            <strong>Time Format</strong>
-                            <p>Choose how time is displayed.</p>
-                        </div>
-                        <select class="form-select">
-                            <option>12 Hour (AM/PM)</option>
-                            <option>24 Hour</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="settings-card">
-                    <h3>Research Tools</h3>
-                    <div class="setting-row">
-                        <div class="setting-info">
-                            <strong>Backup Dataset</strong>
-                            <p>Export task state and activity logs as JSON.</p>
-                        </div>
-                        <button class="btn-primary-outline">Export Data</button>
-                    </div>
-                    <div class="setting-row">
-                        <div class="setting-info">
-                            <strong>Import Dataset</strong>
-                            <p>Import previously exported JSON data.</p>
-                        </div>
-                        <button class="btn-primary-outline">Import Data</button>
-                    </div>
-                    <div class="setting-row">
-                        <div class="setting-info">
-                            <strong>Clear Local Data</strong>
-                            <p>Remove all local data. This action cannot be undone.</p>
-                        </div>
-                        <button class="btn-danger-outline">Clear Data</button>
-                    </div>
-                    <div class="setting-row">
-                        <div class="setting-info">
-                            <strong>Sync Mode</strong>
-                            <p>Automatically sync tasks with local research files.</p>
-                        </div>
-                        <input type="checkbox" class="custom-checkbox" checked>
-                    </div>
                 </div>
 
                 <div class="settings-card">
@@ -141,19 +160,8 @@
                             <p>Choose the default view for tasks.</p>
                         </div>
                         <select class="form-select">
+                            <option>Kanban Board</option>
                             <option>List View</option>
-                            <option>Board View</option>
-                        </select>
-                    </div>
-                    <div class="setting-row">
-                        <div class="setting-info">
-                            <strong>Tasks Per Page</strong>
-                            <p>Set how many tasks to show per page.</p>
-                        </div>
-                        <select class="form-select">
-                            <option>10</option>
-                            <option>25</option>
-                            <option>50</option>
                         </select>
                     </div>
                     <div class="setting-row">
@@ -162,6 +170,13 @@
                             <p>Automatically archive tasks after completion.</p>
                         </div>
                         <input type="checkbox" class="custom-checkbox" checked>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <strong>Clear Local Data</strong>
+                            <p>Remove all local tasks. Cannot be undone.</p>
+                        </div>
+                        <button class="btn-danger-outline" id="clearDataBtn">Clear Data</button>
                     </div>
                 </div>
 
@@ -191,51 +206,28 @@
                 </div>
 
                 <div class="settings-card">
-                    <h3>Appearance</h3>
-                    <div class="setting-row">
-                        <div class="setting-info">
-                            <strong>Primary Color</strong>
-                            <p>Customize the primary theme color.</p>
-                        </div>
-                        <div class="color-picker-mock" style="background: #6c5ce7;"></div>
-                    </div>
-                    <div class="setting-row">
-                        <div class="setting-info">
-                            <strong>Sidebar Style</strong>
-                            <p>Choose how the sidebar looks.</p>
-                        </div>
-                        <select class="form-select">
-                            <option>Dark</option>
-                            <option>Light</option>
-                        </select>
-                    </div>
-                    <div class="setting-row">
-                        <div class="setting-info">
-                            <strong>Compact Mode</strong>
-                            <p>Reduce spacing for a more compact view.</p>
-                        </div>
-                        <input type="checkbox" class="custom-checkbox">
-                    </div>
-                </div>
-
-                <div class="settings-card">
                     <h3>Account & Security</h3>
                     <div class="setting-row">
                         <div class="setting-info">
                             <strong>Change Password</strong>
                             <p>Update your account password.</p>
                         </div>
-                        <button class="btn-primary-outline">Change</button>
+                        <button class="btn-primary-outline" id="changePasswordBtn">Change</button>
+                    </div>
+                    <div class="setting-row password-fields" id="passwordFieldsContainer" style="display: none; flex-direction: column; gap: 10px; border-bottom: none; padding-top: 0;">
+                        <input type="password" id="newPasswordInput" class="form-input" placeholder="Enter new password" style="width: 100%;">
+                        <input type="password" id="confirmPasswordInput" class="form-input" placeholder="Confirm new password" style="width: 100%;">
+                        <button class="btn-primary-outline" id="savePasswordBtn" style="width: 100%;">Save Password</button>
                     </div>
                     <div class="setting-row">
                         <div class="setting-info">
                             <strong>Session Timeout</strong>
                             <p>Automatically log out after inactivity.</p>
                         </div>
-                        <select class="form-select">
-                            <option>30 Minutes</option>
-                            <option>1 Hour</option>
-                            <option>Never</option>
+                        <select class="form-select" id="sessionTimeoutSelect">
+                            <option value="30">30 Minutes</option>
+                            <option value="60">1 Hour</option>
+                            <option value="0">Never</option>
                         </select>
                     </div>
                     <div class="setting-row">
@@ -243,7 +235,7 @@
                             <strong>Delete Account</strong>
                             <p>Permanently delete your account and all data.</p>
                         </div>
-                        <button class="btn-danger-outline">Delete Account</button>
+                        <button class="btn-danger-outline" id="deleteAccountBtn" style="border-color: #ef4444; color: #ef4444;">Delete Account</button>
                     </div>
                 </div>
 
@@ -253,31 +245,51 @@
                         <div class="about-icon"><i class="fa-solid fa-circle-info"></i></div>
                         <div class="about-info">
                             <strong>Version</strong>
-                            <p>You are using TaskFlow v1.0.0</p>
+                            <p>You are using TaskFlow v2.0.0 Pro</p>
                         </div>
-                        <span class="version-tag">v1.0.0</span>
+                        <span class="version-tag">Latest</span>
                     </div>
-                    <div class="about-row">
+                    
+                    <div class="about-row" id="helpRowContainer">
                         <div class="about-icon"><i class="fa-regular fa-circle-question"></i></div>
                         <div class="about-info">
                             <strong>Help & Support</strong>
                             <p>View documentation or contact support.</p>
                         </div>
-                        <button class="btn-primary-outline">View Help</button>
+                        <button class="btn-primary-outline" id="viewHelpBtn">View Help</button>
                     </div>
-                    <div class="about-row">
+                    <div class="about-dropdown-content" id="helpTextDropdown">
+                        <h5>Frequently Asked Questions</h5>
+                        <p><strong>Q: How do I create a new task?</strong><br>Go to the main dashboard and click the "Add Task" button at the top right of your board layout context.</p>
+                        <p><strong>Q: Is my task state stored securely?</strong><br>Yes, all workflow objects are sandboxed locally into your explicit account storage index maps.</p>
+                        <p>For critical backend support, write to us at: <code>support@taskflow.pro</code></p>
+                    </div>
+
+                    <div class="about-row" id="policyRowContainer">
                         <div class="about-icon"><i class="fa-solid fa-shield-halved"></i></div>
                         <div class="about-info">
                             <strong>Privacy Policy</strong>
-                            <p>Read our privacy policy.</p>
+                            <p>Read our privacy policy guidelines.</p>
                         </div>
-                        <button class="btn-primary-outline">View Policy</button>
+                        <button class="btn-primary-outline" id="viewPolicyBtn">View Policy</button>
+                    </div>
+                    <div class="about-dropdown-content" id="policyTextDropdown">
+                        <h5>Data Protection & Integrity Manifest</h5>
+                        <p>Your workspace data integrity is our highest priority. We use local state isolation protocols to store data without structural transit leaks.</p>
+                        <ul>
+                            <li>No cloud indexing maps are created without manual sync.</li>
+                            <li>Account parameter details are client-encrypted locally.</li>
+                            <li>Wiping data cleans your encryption profile cache completely.</li>
+                        </ul>
                     </div>
                 </div>
 
             </div>
         </main>
     </div>
-    <script src="/settings/script.js"></script>
+
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <script src="script.js"></script>
 </body>
 </html>

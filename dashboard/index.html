@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do Dashboard</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -137,7 +137,6 @@
                     <div class="kanban-header-actions">
                         <h3>Task Board</h3>
                         <div class="action-buttons">
-                            <button class="filter-btn" id="clearFiltersBtn"><i class="fa-solid fa-filter-circle-xmark"></i> Clear Filters</button>
                             <button class="add-task-trigger-btn" id="openModalBtn"><i class="fa-solid fa-plus"></i> Add Task</button>
                         </div>
                     </div>
@@ -183,59 +182,16 @@
                         <p class="progress-feedback">Workspace Efficiency 🎉<br><span class="subtext">Keep it up and achieve your goals.</span></p>
                     </div>
 
-                    <div class="metrics-card productivity-graph-card">
+                    <div class="bottom-card recent-activity-card">
                         <div class="card-header-flex">
-                            <h3>Productivity</h3>
-                            <select class="time-select"><option>This Week</option></select>
+                            <h3>Recent Activity</h3>
+                            <a href="#" class="view-all-link">View All Activity</a>
                         </div>
-                        <div class="productivity-percentage">100%</div>
-                        <div class="vector-graph">
-                            <div class="graph-bar-chart">
-                                <div class="bar" style="height: 40%"></div>
-                                <div class="bar" style="height: 65%"></div>
-                                <div class="bar" style="height: 50%"></div>
-                                <div class="bar" style="height: 85%"></div>
-                                <div class="bar" style="height: 60%"></div>
-                                <div class="bar" style="height: 70%"></div>
-                                <div class="bar" style="height: 95%"></div>
-                            </div>
-                        </div>
-                        <div class="days-label">
-                            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                        <div class="activity-timeline" id="activityTimeline">
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
-
-            <section class="bottom-metrics-grid">
-                <div class="bottom-card text-center-card">
-                    <h3>Productivity Overview</h3>
-                    <p class="subtext">You are more productive than 70% of users this week.</p>
-                    <div class="triple-progress">
-                        <div class="circle-metric progress-purple">
-                            <div class="inner-circle" id="overview-daily">0%</div>
-                            <span>Daily Progress</span>
-                        </div>
-                        <div class="circle-metric progress-green">
-                            <div class="inner-circle" id="overview-weekly">0%</div>
-                            <span>Weekly Progress</span>
-                        </div>
-                        <div class="circle-metric progress-amber">
-                            <div class="inner-circle">45%</div>
-                            <span>Monthly Progress</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bottom-card recent-activity-card">
-                    <div class="card-header-flex">
-                        <h3>Recent Activity</h3>
-                        <a href="#" class="view-all-link">View All Activity</a>
-                    </div>
-                    <div class="activity-timeline" id="activityTimeline">
-                        </div>
-                </div>
-            </section>
         </main>
     </div>
 
