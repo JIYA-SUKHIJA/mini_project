@@ -18,14 +18,14 @@ function login(){
     if (credential === 'admin' && p === 'admin123') {
         localStorage.setItem('isLoggedIn', 'true');
         // Save admin as the current user
-        localStorage.setItem('currentUser', JSON.stringify({ fullname: 'Admin User', username: 'admin' })); 
+        localStorage.setItem('currentUser', JSON.stringify({ fullname: 'Admin User', email: 'admin' })); 
         location.href = 'dashboard/index.html';
         return;
     }
 
     // 2. Fallback to check dynamically registered users in localStorage
     const users = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
-    const matchedUser = users.find(u => (u.email === credential || u.username === credential) && u.password === p);
+    const matchedUser = users.find(u => u.email === credential && u.password === p);
 
     if (matchedUser) {
         localStorage.setItem('isLoggedIn', 'true');
@@ -41,7 +41,6 @@ function login(){
 function register() {
     const fullname = document.getElementById('fullname').value.trim();
     const email = document.getElementById('email').value.trim();
-    const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirm-password').value;
 
@@ -62,13 +61,9 @@ function register() {
         showMsg('Email address is already registered');
         return;
     }
-    if (users.some(u => u.username === username)) {
-        showMsg('Username is already taken');
-        return;
-    }
 
     // Save payload transaction to database index maps
-    users.push({ fullname, email, username, password });
+    users.push({ fullname, email, password });
     localStorage.setItem('registeredUsers', JSON.stringify(users));
 
     // Redirect instantly to the sign-in page. 
